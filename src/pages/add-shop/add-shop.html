@@ -1,0 +1,78 @@
+<!--
+  Generated template for the AddShopPage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+  </button>
+    <ion-title>Add Shop</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding class="add-shop">
+  <form #newShopForm="ngForm" novalidate>
+    <ion-item>
+      <ion-label primary>Zone</ion-label>
+      <ion-select name="sltZOne" [(ngModel)]="shop.zoneId" #zoneId="ngModel" required>
+        <ion-option value="1">Dhaka</ion-option>
+        <ion-option value="2">Chittagong</ion-option>
+        <ion-option value="3">Jasor</ion-option>
+      </ion-select>
+    </ion-item>
+    <p [hidden]="zoneId.valid || submitted == false" danger padding-left>
+      Please select a Zone
+    </p>
+    <ion-item>
+      <ion-label primary>Distributor</ion-label>
+      <ion-select name="sltDist" [(ngModel)]="shop.distributorId" #distributorId="ngModel" required>
+        <ion-option value="1">Naser</ion-option>
+        <ion-option value="2">Parvez</ion-option>
+        <ion-option value="3">Shimul</ion-option>
+        <ion-option value="4">Maksud</ion-option>
+      </ion-select>
+    </ion-item>
+    <p [hidden]="distributorId.valid || submitted == false" danger padding-left>
+      Please select a Distributor
+    </p>
+    <ion-item>
+      <ion-label floating primary>Shop Name</ion-label>
+      <ion-input name="shopName" [(ngModel)]="shop.shopName" ngControl="shopName" type="text" #shopName="ngModel" required>
+      </ion-input>
+    </ion-item>
+    <p [hidden]="shopName.valid || submitted == false" danger padding-left>
+      Shop name is required
+    </p>
+    <ion-item>
+      <ion-label floating primary>Address</ion-label>
+      <ion-input name="address" [(ngModel)]="shop.address" ngControl="address" type="text" #address="ngModel" required>
+      </ion-input>
+    </ion-item>
+    <p [hidden]="address.valid || submitted == false" danger padding-left>
+      Address is required
+    </p>
+    <ion-item>
+      <ion-label floating primary>Owner's Name</ion-label>
+      <ion-input name="ownerName" [(ngModel)]="shop.ownerName" ngControl="ownerName" type="text" #ownerName="ngModel" required>
+      </ion-input>
+    </ion-item>
+    <p [hidden]="ownerName.valid || submitted == false" danger padding-left>
+      Owner's Name is required
+    </p>
+    <ion-item>
+      <ion-label floating primary>Owner's Number</ion-label>
+      <ion-input name="ownerNumber" [(ngModel)]="ownerNumber.address" ngControl="ownerNumber" type="text" #ownerNumber="ngModel" required>
+      </ion-input>
+    </ion-item>
+    <p [hidden]="ownerNumber.valid || submitted == false" danger padding-left>
+      Owner's Number is required
+    </p>
+    <ion-row responsive-sm>
+      <ion-col>
+        <button ion-button (click)="addShop(newShopForm)" type="submit" primary block>Save</button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

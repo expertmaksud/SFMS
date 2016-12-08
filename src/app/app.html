@@ -1,0 +1,46 @@
+<ion-menu [content]="content" *ngIf="loggedIn">
+  <ion-toolbar>
+    <ion-title>Actions</ion-title>
+  </ion-toolbar>
+  <ion-content>
+    <ion-list>
+      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+         <ion-icon item-left [name]="p.icon"></ion-icon>
+        {{p.title}}
+      </button>
+      <button menuClose ion-item (click)="logOut()">
+         <ion-icon item-left name="log-out"></ion-icon>
+        LogOut
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+<ion-content *ngIf="!loggedIn">
+  <div class="logo">
+    <img src="img/Oriental-Oil-Company-Ltd-24.png">
+  </div>
+  <form #loginForm="ngForm" novalidate>
+    <ion-item>
+      <ion-label fixed primary>Username</ion-label>
+      <ion-input [(ngModel)]="login.username" name="username" ngControl="username" type="text" #username="ngModel" required>
+      </ion-input>
+    </ion-item>
+    <p [hidden]="username.valid || submitted == false" danger padding-left>
+      Username is required
+    </p>
+    <ion-item>
+      <ion-label fixed primary>Password</ion-label>
+      <ion-input [(ngModel)]="login.password" name="password" ngControl="password" type="password" #password="ngModel" required>
+      </ion-input>
+    </ion-item>
+    <p [hidden]="password.valid || submitted == false" danger padding-left>
+      Password is required
+    </p>
+    <ion-row responsive-sm>
+      <ion-col>
+        <button class="button button-md button-default button-default-md button-block button-block-md" (click)="onLogin(loginForm)" type="submit" primary block>Login</button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>
+<ion-nav id="nav" #content swipeBackEnabled="false"></ion-nav>

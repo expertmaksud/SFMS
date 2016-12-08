@@ -1,0 +1,86 @@
+<!--
+  Generated template for the DoPage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Create DO</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="do">
+  <form #doForm="ngForm" novalidate>
+  <ion-list>
+      <ion-item>
+        <ion-label primary>Zone</ion-label>
+        <ion-select name="selectZone" [(ngModel)]="do.zoneId" #zoneId="ngModel"  required>
+          <ion-option value="1">Dhaka</ion-option>
+          <ion-option value="2">Chittagong</ion-option>
+          <ion-option value="3">Jasor</ion-option>
+        </ion-select>
+      </ion-item>
+      <p [hidden]="zoneId.valid || submitted == false" danger padding-left>
+        Please select a Zone
+      </p>
+      <ion-item>
+        <ion-label primary>Distributor</ion-label>
+        <ion-select name="selectDistributor" [(ngModel)]="do.distributorId" #distributorId="ngModel"  required>
+          <ion-option value="1">Naser</ion-option>
+          <ion-option value="2">Parvez</ion-option>
+          <ion-option value="3">Shimul</ion-option>
+          <ion-option value="4">Maksud</ion-option>
+        </ion-select>
+      </ion-item>
+      <p [hidden]="distributorId.valid || submitted == false" danger padding-left>
+        Please select a Distributor
+      </p>
+      <ion-item>
+        <ion-label primary>Payment Mode</ion-label>
+        <ion-select name="selectPaymentMode" [(ngModel)]="do.paymentMode" #paymentMode="ngModel" required>
+          <ion-option value="0">Cash</ion-option>
+          <ion-option value="1">Credit</ion-option>
+        </ion-select>
+      </ion-item>
+      <p [hidden]="paymentMode.valid || submitted == false" danger padding-left>
+        Please select a Distributor
+      </p>
+      <ion-item>
+        <ion-label floating primary>Credit Days</ion-label>
+        <ion-input [(ngModel)]="do.creditDays" name="creditDays" ngControl="creditDays" type="number" #creditDays="ngModel" required>
+        </ion-input>
+      </ion-item>
+      <p [hidden]="creditDays.valid || submitted == false" danger padding-left>
+        Quantity is required
+      </p>
+      <ion-item>
+        <ion-label floating primary>Remarks</ion-label>
+        <ion-input [(ngModel)]="do.remarks" name="remarks" ngControl="remarks" type="string" #remarks="ngModel">
+        </ion-input>
+      </ion-item>
+      <ion-row responsive-sm>
+        <ion-col>
+          <button ion-button (click)="openModal()" type="button" primary block>Add Product</button>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+    <ion-list>
+        <ion-item-sliding *ngFor="let product of products; let i = index">
+            <ion-item>
+                <h2>{{ product.productId }}</h2>
+            </ion-item>
+            <ion-item-options>
+                <button danger (click)="delete(i)">
+                    <ion-icon name="trash"></ion-icon>
+                    Delete
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+  </form>
+</ion-content>

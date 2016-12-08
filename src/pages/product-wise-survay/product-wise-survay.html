@@ -1,0 +1,84 @@
+<!--
+  Generated template for the ProductWiseSurvayPage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Product Wise Shop Survey</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="product-wise-survay">
+  <form #surveyShopForm="ngForm" novalidate>
+    <ion-item>
+      <ion-label primary>Zone</ion-label>
+      <ion-select name="sltZone" [(ngModel)]="survey.zoneId" #zoneId="ngModel" required>
+        <ion-option value="1">Dhaka</ion-option>
+        <ion-option value="2">Chittagong</ion-option>
+        <ion-option value="3">Jasor</ion-option>
+      </ion-select>
+    </ion-item>
+    <p [hidden]="zoneId.valid || submitted == false" danger padding-left>
+      Please select a Zone
+    </p>
+    <ion-item>
+      <ion-label primary>Distributor</ion-label>
+      <ion-select name="sltDistributor" [(ngModel)]="survey.distributorId" #distributorId="ngModel" required>
+        <ion-option value="1">Naser</ion-option>
+        <ion-option value="2">Parvez</ion-option>
+        <ion-option value="3">Shimul</ion-option>
+        <ion-option value="4">Maksud</ion-option>
+      </ion-select>
+    </ion-item>
+    <p [hidden]="distributorId.valid || submitted == false" danger padding-left>
+      Please select a Distributor
+    </p>
+    <ion-item>
+      <ion-label primary>Shop</ion-label>
+      <ion-select name="sltShop" [(ngModel)]="survey.shopId" #shopId="ngModel" required>
+        <ion-option value="1">Zia Store</ion-option>
+        <ion-option value="2">Ma Store</ion-option>
+        <ion-option value="3">Koner Dokan</ion-option>
+        <ion-option value="4">Procesta</ion-option>
+      </ion-select>
+    </ion-item>
+    <p [hidden]="distributorId.valid || submitted == false" danger padding-left>
+      Please select a Shop
+    </p>
+    
+     <ion-item>
+      <ion-label primary>Finish Product</ion-label>
+      <ion-select name="sltProduct" [(ngModel)]="survey.productId" #productId="ngModel" (change)="onProductChange()" required>
+        <ion-option value="1">HP Auto Shakti G19 (CNG)</ion-option>
+        <ion-option value="2">HP ENKLO G4 (Hydraulic Oil)</ion-option>
+        <ion-option value="3">HP EP G7 API7 (Gear Oil)</ion-option>
+        <ion-option value="4">HP Milcy Turbo Tech G17</ion-option>
+      </ion-select>
+    </ion-item>
+    <p [hidden]="distributorId.valid || submitted == false" danger padding-left>
+      Please select a Shop
+    </p>
+
+    <ion-item>
+      <ion-label floating primary>Quantity</ion-label>
+      <ion-input name="quantity" [(ngModel)]="survey.quantity" ngControl="quantity" type="text" #quantity="ngModel" required>
+      </ion-input>
+    </ion-item>
+    <p [hidden]="quantity.valid || submitted == false" danger padding-left>
+      Quantity is required
+    </p>    
+ 
+
+    <ion-row responsive-sm>
+      <ion-col>
+        <button ion-button (click)="addProductSurvey(surveyShopForm)" type="submit" primary block>Save</button>
+      </ion-col>
+
+    </ion-row>
+  </form>
+</ion-content>
