@@ -47,10 +47,10 @@
     </p>
     <ion-item>
       <ion-label floating primary>Address</ion-label>
-      <ion-input name="address" [(ngModel)]="shop.address" ngControl="address" type="text" #address="ngModel" required>
+      <ion-input name="address" [(ngModel)]="shop.address" ngControl="address" type="text"  required>
       </ion-input>
     </ion-item>
-    <p [hidden]="address.valid || submitted == false" danger padding-left>
+    <p [hidden]="submitted == false" danger padding-left>
       Address is required
     </p>
     <ion-item>
@@ -63,7 +63,7 @@
     </p>
     <ion-item>
       <ion-label floating primary>Owner's Number</ion-label>
-      <ion-input name="ownerNumber" [(ngModel)]="ownerNumber.address" ngControl="ownerNumber" type="text" #ownerNumber="ngModel" required>
+      <ion-input name="ownerNumber" [(ngModel)]="shop.ownerNumber" ngControl="ownerNumber" type="text" #ownerNumber="ngModel" required>
       </ion-input>
     </ion-item>
     <p [hidden]="ownerNumber.valid || submitted == false" danger padding-left>

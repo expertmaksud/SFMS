@@ -9,7 +9,7 @@ import { SurvayPage } from '../pages/survay/survay';
 import { AddShopPage } from '../pages/add-shop/add-shop';
 import { ProductWiseSurvayPage } from '../pages/product-wise-survay/product-wise-survay';
 
-import { UserService } from '../providers/user-service/user-service';
+import { UserService } from '../providers/user-service';
 
 
 
@@ -66,9 +66,8 @@ export class MyApp {
     this.submitted = true;
 
     if (form.valid) {
-      this.userService.login(this.login.username);
-      this.openPage(this.pages[0]);
-
+      this.userService.login(this.login.username, this.login.password);
+  
       //this.nav.push(GettingStartedPage);
     }
   }
@@ -86,6 +85,7 @@ export class MyApp {
   }
   listenToLoginEvents() {
     this.events.subscribe('user:login', () => {
+      this.openPage(this.pages[0]);
       this.loggedIn = true;
     });
 

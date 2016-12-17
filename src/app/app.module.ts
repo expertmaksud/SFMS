@@ -13,7 +13,10 @@ import { AddShopPage } from '../pages/add-shop/add-shop';
 import { ProductWiseSurvayPage } from '../pages/product-wise-survay/product-wise-survay';
 import { LoginPage } from '../pages/login/login';
 
-import { UserService } from '../providers/user-service/user-service';
+import { HelperService } from '../providers/helper-service'
+import { UserService } from '../providers/user-service';
+import { DOService } from '../providers/do-service';
+
 
 @NgModule({
   declarations: [
@@ -42,6 +45,7 @@ import { UserService } from '../providers/user-service/user-service';
     ProductWiseSurvayPage,
     LoginPage
   ],
-  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, UserService, Storage]
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler },
+    HelperService, UserService, DOService, Storage]
 })
 export class AppModule { }

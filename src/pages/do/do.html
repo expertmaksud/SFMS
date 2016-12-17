@@ -12,17 +12,13 @@
     <ion-title>Create DO</ion-title>
   </ion-navbar>
 </ion-header>
-
-
 <ion-content padding class="do">
   <form #doForm="ngForm" novalidate>
-  <ion-list>
+    <ion-list>
       <ion-item>
         <ion-label primary>Zone</ion-label>
-        <ion-select name="selectZone" [(ngModel)]="do.zoneId" #zoneId="ngModel"  required>
-          <ion-option value="1">Dhaka</ion-option>
-          <ion-option value="2">Chittagong</ion-option>
-          <ion-option value="3">Jasor</ion-option>
+        <ion-select name="selectZone" [(ngModel)]="do.zoneId" #zoneId="ngModel" (ionChange)="zoneChanged($event, zoneId)" required>
+          <ion-option *ngFor="let zone of zones" value="{{zone.id}}">{{zone.zoneName}}</ion-option>
         </ion-select>
       </ion-item>
       <p [hidden]="zoneId.valid || submitted == false" danger padding-left>
@@ -30,11 +26,8 @@
       </p>
       <ion-item>
         <ion-label primary>Distributor</ion-label>
-        <ion-select name="selectDistributor" [(ngModel)]="do.distributorId" #distributorId="ngModel"  required>
-          <ion-option value="1">Naser</ion-option>
-          <ion-option value="2">Parvez</ion-option>
-          <ion-option value="3">Shimul</ion-option>
-          <ion-option value="4">Maksud</ion-option>
+        <ion-select name="selectDistributor" [(ngModel)]="do.distributorId" #distributorId="ngModel" required>
+          <ion-option *ngFor="let distributor of distributors" value="{{distributor.id}}">{{distributor.distributorNameWithCode}}</ion-option>
         </ion-select>
       </ion-item>
       <p [hidden]="distributorId.valid || submitted == false" danger padding-left>
@@ -42,7 +35,7 @@
       </p>
       <ion-item>
         <ion-label primary>Payment Mode</ion-label>
-        <ion-select name="selectPaymentMode" [(ngModel)]="do.paymentMode" #paymentMode="ngModel" required>
+        <ion-select name="selectPaymentMode" [(ngModel)]="do.paymentMode" #paymentMode="ngModel" (ionChange) ="paymentModeChanged($event, paymentMode)" required>
           <ion-option value="0">Cash</ion-option>
           <ion-option value="1">Credit</ion-option>
         </ion-select>
@@ -63,6 +56,27 @@
         <ion-input [(ngModel)]="do.remarks" name="remarks" ngControl="remarks" type="string" #remarks="ngModel">
         </ion-input>
       </ion-item>
+      <ion-item>
+        <ion-label primary>Product Type</ion-label>
+        <ion-select name="selectProductType" [(ngModel)]="productTypeId" #productType="ngModel" (ionChange)="productTypeChanged()" required>
+          <ion-option value="0">Raw Material</ion-option>
+          <ion-option value="1">Finished Product</ion-option>
+          <ion-option value="2">Packaging</ion-option>
+          <ion-option value="3">Other Product</ion-option>
+        </ion-select>
+      </ion-item>
+      <p [hidden]="productType.valid || submitted == false" danger padding-left>
+        Please select a Product type
+      </p>
+      <ion-item *ngIf="isFinishProductSelected">
+        <ion-label primary>Brand</ion-label>
+        <ion-select name="selectBrand" [(ngModel)]="brandId" #brand="ngModel" required>
+          <ion-option *ngFor="let brand of brands" value="{{brand.id}}">{{brand.brandName}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <p [hidden]="productType.valid || submitted == false" danger padding-left>
+        Please select a brand
+      </p>
       <ion-row responsive-sm>
         <ion-col>
           <button ion-button (click)="openModal()" type="button" primary block>Add Product</button>
@@ -70,17 +84,41 @@
       </ion-row>
     </ion-list>
     <ion-list>
-        <ion-item-sliding *ngFor="let product of products; let i = index">
-            <ion-item>
-                <h2>{{ product.productId }}</h2>
-            </ion-item>
-            <ion-item-options>
-                <button danger (click)="delete(i)">
+       <ion-list-header>
+          <ion-row>
+            <ion-col width-50>
+              <h2>Product Name</h2>
+            </ion-col>
+            <ion-col width-25>
+              <h2>Qty</h2>
+            </ion-col>
+            <ion-col width-25>
+              <h2>Price</h2>
+            </ion-col>
+          </ion-row>
+        </ion-list-header>
+      <ion-item-sliding *ngFor="let product of selectProducts; let i = index">
+        <ion-item text-wrap>
+          <ion-row>
+            <ion-col width-50>
+              <h2>{{ product.fullProductName }}</h2>
+            </ion-col>
+            <ion-col width-25>
+              <h2>{{ product.quantity }}</h2>
+            </ion-col>
+            <ion-col width-25>
+              {{ product.unitPrice }}
+            </ion-col>
+          </ion-row>
+        </ion-item>
+        <ion-item-options>
+          <button danger (click)="deleteItem(product.productId)">
                     <ion-icon name="trash"></ion-icon>
                     Delete
                 </button>
-            </ion-item-options>
-        </ion-item-sliding>
+        </ion-item-options>
+      </ion-item-sliding>
     </ion-list>
   </form>
+  <button ion-button block outline (click)="saveRequisition()">Save Requisition</button>
 </ion-content>

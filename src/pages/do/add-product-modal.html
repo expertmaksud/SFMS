@@ -6,44 +6,48 @@
     <ion-buttons start>
       <button outline (click)="dismiss()">
       <span color="primary" showWhen="ios">Cancel</span>
-      <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      <ion-icon name="md-close" showWhen="android,windows"> Cancel</ion-icon>
     </button>
       <button outline (click)="addProduct()">
        <span color="primary" showWhen="ios">Add Item</span>
-      <ion-icon name="md-add" showWhen="android,windows"></ion-icon>
+      <ion-icon name="md-add" showWhen="android,windows"> Add</ion-icon>
     </button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content>
   <ion-list>
-    <ion-list-header>Tracks</ion-list-header>
+    <ion-list-header>Add Product</ion-list-header>
     <ion-item>
-      <ion-label primary>Finish Product</ion-label>
-      <ion-select [(ngModel)]="productId">
-        <ion-option value="1">HP Auto Shakti G19 (CNG)</ion-option>
-        <ion-option value="2">HP ENKLO G4 (Hydraulic Oil)</ion-option>
-        <ion-option value="3">HP EP G7 API7 (Gear Oil)</ion-option>
-        <ion-option value="4">HP Milcy Turbo Tech G17</ion-option>
+      <ion-label primary>Products</ion-label>
+      <ion-select [(ngModel)]="selectProduct.productId" #selectedProduct="ngModel" (ionChange)="productChanged($event, selectedProduct)">
+        <ion-option *ngFor="let product of products" value="{{product.id}}">{{product.fullProductName}}</ion-option>
       </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label floating primary>Quantity</ion-label>
+      <ion-input [(ngModel)]="selectProduct.quantity" (change)="updatePrice()"  name="quantity" type="number" required>
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary>IsFree</ion-label>
+      <ion-checkbox [(ngModel)]="selectProduct.isFree" name="isFree" required>
+      </ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label floating primary>Unit Price</ion-label>
+      <ion-input [(ngModel)]="selectProduct.unitPrice" name="unitPrice" type="number" disabled>
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating primary>Total Price</ion-label>
+      <ion-input [(ngModel)]="selectProduct.price" name="price" type="number" disabled>
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating primary>Remarks</ion-label>
+      <ion-textarea [(ngModel)]="selectProduct.itemWiseRemarks" name="remarks" type="strings" required>
+      </ion-textarea>
     </ion-item>
   </ion-list>
 </ion-content>
-<!--<ion-content>
-  <form #productForm="ngForm" novalidate>
-    <ion-list>
-      <ion-item>
-        <ion-label primary>Finish Product</ion-label>
-        <ion-select [(ngModel)]="product.productId" #productId="ngForm" required>
-          <ion-option value="1">HP Auto Shakti G19 (CNG)</ion-option>
-          <ion-option value="2">HP ENKLO G4 (Hydraulic Oil)</ion-option>
-          <ion-option value="3">HP EP G7 API7 (Gear Oil)</ion-option>
-          <ion-option value="4">HP Milcy Turbo Tech G17</ion-option>
-        </ion-select>
-      </ion-item>
-      <p [hidden]="distributorId.valid || submitted == false" danger padding-left>
-        Please select a Product
-      </p>
-    </ion-list>
-  </form>
-</ion-content>-->
